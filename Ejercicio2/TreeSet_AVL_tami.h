@@ -93,12 +93,23 @@ public:
 
 
     int const& k_esimo(int t) {
-        kesimo(raiz, t);
+        return kesimo(raiz, t);
     }
 
 protected:
-    int const& kesimo(Link& iz, int num) const {
-
+    int const& kesimo(Link& nodo, int num) const {
+        if (nodo == nullptr) {
+            throw out_of_range("K-esimo no existente");
+        }
+        if (nodo->tam_i == num) {
+            return nodo->elem;
+        }
+        else if (nodo->tam_i > num) { //Izquierda
+            return kesimo(nodo->iz, num);
+        }
+        else if (nodo->tam_i < num) {
+            return kesimo(nodo->dr, num - nodo->tam_i);
+        }
     }
 
     void copia(Set const& other) {
@@ -144,8 +155,10 @@ protected:
         }
         else if (menor(e, a->elem)) {
             crece = inserta(e, a->iz);
-            a->tam_i++; //Solo se aumenta cuando se inserta en su lado izquierdo
-            if (crece) reequilibraDer(a);
+            if (crece) {
+                a->tam_i++; //Solo se aumenta cuando se inserta en su lado izquierdo
+                reequilibraDer(a);
+            }
         }
         else if (menor(a->elem, e)) {
             crece = inserta(e, a->dr);
@@ -162,20 +175,22 @@ protected:
     }
 
     void rotaDer(Link& r2) {
+        r2->tam_i = r2->tam_i - r2->iz->tam_i; //Modoficacion para kesimos
+
         Link r1 = r2->iz;
         r2->iz = r1->dr;
         r1->dr = r2;
-        r2->tam_i = r2->tam_i - r1->tam_i; //Modoficacion para kesimos
         r2->altura = std::max(altura(r2->iz), altura(r2->dr)) + 1;
         r1->altura = std::max(altura(r1->iz), altura(r1->dr)) + 1;
         r2 = r1;
     }
 
     void rotaIzq(Link& r1) {
+        r1->dr->tam_i = r1->dr->tam_i + r1->tam_i; //Modificacion para kesimos
+
         Link r2 = r1->dr;
         r1->dr = r2->iz;
         r2->iz = r1;
-        r2->tam_i = r2->iz->tam_i + r2->tam_i; //Modificacion para kesimos
         r1->altura = std::max(altura(r1->iz), altura(r1->dr)) + 1;
         r2->altura = std::max(altura(r2->iz), altura(r2->dr)) + 1;
         r1 = r2;

@@ -48,15 +48,21 @@ bool resuelveCaso() {
     // COMPLETAR
     int M = 0; //Cantidad de numeros a consultar
     cin >> M;
-    for (int i = 0; i < M; ++i) {
+     for (int i = 0; i < M; ++i) {
         int num;
         cin >> num;
-        int elem = cjto.k_esimo(num);
-        cout << elem << endl;
+      
+        try{
+            int elem = cjto.k_esimo(num);
+            std::cout << elem << endl;
+        }
+        catch (out_of_range& e){
+            std::cout << "??" << endl;
+        }
     }
 
 
-    cout << "---\n";
+    std::cout << "---\n";
 
     return true;
 }
