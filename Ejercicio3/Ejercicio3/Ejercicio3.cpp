@@ -26,13 +26,17 @@ using namespace std;
 
 int64_t resuelve(priority_queue<int64_t, vector<int64_t>, greater<int64_t>>& sumaMin, int64_t N) {
     int64_t sumaCoste = 0;
-    
-    while (!sumaMin.empty()) {
-        int64_t top = sumaMin.top();
+    int64_t sumaNums = 0;
+
+    while (sumaMin.size()>1) {
+        int64_t top1 = sumaMin.top();
         sumaMin.pop();
-        int64_t aux = top + sumaMin.top();
-        sumaMin.push(aux);
-        sumaCoste += aux;
+        int64_t top2 = sumaMin.top();
+        sumaMin.pop();
+        sumaNums = top1 + top2;
+        sumaMin.push(sumaNums);
+
+        sumaCoste += sumaNums;
     }
 
     return sumaCoste;

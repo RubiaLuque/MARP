@@ -20,7 +20,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TreeSetAVL_tami.h">
+    <ClInclude Include="bintree.h">
       <Filter>Archivos de origen</Filter>
     </ClInclude>
   </ItemGroup>

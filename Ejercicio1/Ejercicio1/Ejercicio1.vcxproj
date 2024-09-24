@@ -130,7 +130,7 @@
     <ClCompile Include="Ejercicio1.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TreeSetAVL_tami.h" />
+    <ClInclude Include="bintree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
