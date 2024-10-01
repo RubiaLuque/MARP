@@ -1,6 +1,7 @@
 
 /*@ <authors>
  *
+
  * Muxu Rubia Luque
  *
  *@ </authors> */
@@ -12,7 +13,6 @@ using namespace std;
 
 /*@ <answer>
 
- 
 
  @ </answer> */
 
