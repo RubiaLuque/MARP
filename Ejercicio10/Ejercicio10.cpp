@@ -26,9 +26,9 @@ using namespace std;
  // ================================================================
  //@ <answer>
 
-bool operator>(pair<int, int> a, pair<int, int> b) {
-    return b.second > a.second || (a.second == b.second && b.second > a.second);
-}
+//bool operator>(pair<int, int> a, pair<int, int> b) {
+//    return b.second > a.second || (a.second == b.second && b.second > a.second);
+//}
 
 bool resuelveCaso() {
 
@@ -40,16 +40,17 @@ bool resuelveCaso() {
         return false;
 
     //Cola de pares (num canal, audiencia)
-    IndexPQ<pair<int, int>, greater<int>> cola(numCanales);
+    IndexPQ<int, greater<int>> cola(numCanales);
     //num canal y num mins
     vector<pair<int, int>> vector(numCanales);
 
     //Para el minuto 0 se hace push porque no existen los elementos
     for (int i = 0; i < numCanales; ++i) {
         int audiencia; cin >> audiencia;
-        cola.push(i, { i, audiencia });
+        cola.push(i, audiencia );
         vector[i] = { i, 0 };
     }
+
     int anteriorMinuto =0;
 
     //Aqui se hace update de los canales que ya existen
@@ -67,22 +68,27 @@ bool resuelveCaso() {
         cin >> canal;
         while (canal != -1) {
             cin >> audiencia;
-            cola.update(canal, { canal, audiencia }); 
+            cola.update(canal -1, audiencia); 
             cin >> canal;
         }
 
     }
+
     vector[cola.top().elem].second += (numMins - anteriorMinuto);
    
     // escribir la solución
     std::sort(vector.begin(), vector.end(), [](auto& left, auto& right)
     {
-            return left.second < right.second;
+            return left.second > right.second;
     });
 
     for (int i = 0; i < vector.size(); ++i) {
-        if()
+        if (vector[i].second != 0) {
+            cout << vector[i].first +1 << " " << vector[i].second << "\n";
+        }
     }
+
+    cout << "---\n";
 
     return true;
 }
