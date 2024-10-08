@@ -79,7 +79,7 @@ bool resuelveCaso() {
     // escribir la solución
     std::sort(vector.begin(), vector.end(), [](auto& left, auto& right)
     {
-            return left.second > right.second;
+            return left.second > right.second || (left.second == right.second && left.first < right.first);
     });
 
     for (int i = 0; i < vector.size(); ++i) {
