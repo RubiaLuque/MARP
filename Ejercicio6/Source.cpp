@@ -1,8 +1,8 @@
 
 /*@ <authors>
  *
- * Nombre, apellidos y usuario del juez (MARPXX) de los autores de la solución.
- *
+ * Muxu Rubia Luque MARP35
+ * 
  *@ </authors> */
 
 #include <iostream>
@@ -10,7 +10,6 @@
 #include <queue>
 using namespace std;
 
-#include "..."  // propios o los de las estructuras de datos de clase
 
 /*@ <answer>
 
@@ -26,14 +25,38 @@ using namespace std;
  // ================================================================
  //@ <answer>
 
+struct paciente {
+    string nombre;
+    int priority;
+    int turno;
+};
+
+bool operator>(paciente a, paciente b) {
+    return b.priority > a.priority || (a.priority == b.priority && b.turno > a.turno);
+}
+
 bool resuelveCaso() {
 
     // leer los datos de la entrada
-
-    if (caso especial)
+    int N; 
+    cin >> N; //Numero eventos
+    if (N == 0)
         return false;
 
+    std::priority_queue<paciente, greater<int>> cola;
+
     // resolver el caso posiblemente llamando a otras funciones
+    for (int i = 0; i < N; ++i) {
+        int evento;
+        cin >> evento;
+        if (evento == 'I') {
+            string nombre; int priority;
+            cola.push({ nombre, priority, 0 });
+        }
+        else if (evento=='A') {
+
+        }
+    }
 
     // escribir la solución
 
