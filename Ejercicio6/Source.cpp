@@ -8,8 +8,8 @@
 #include <iostream>
 #include <fstream>
 #include <queue>
+#include "IndexPQ.h"
 using namespace std;
-
 
 /*@ <answer>
 
@@ -27,11 +27,10 @@ using namespace std;
 
 struct paciente {
     string nombre;
-    int priority;
     int turno;
 };
 
-bool operator>(paciente a, paciente b) {
+bool operator>(paciente const& a, paciente const& b) {
     return b.priority > a.priority || (a.priority == b.priority && b.turno > a.turno);
 }
 
@@ -43,7 +42,7 @@ bool resuelveCaso() {
     if (N == 0)
         return false;
 
-    std::priority_queue<paciente, greater<int>> cola;
+    IndexPQ<paciente, greater<int>> cola;
 
     // resolver el caso posiblemente llamando a otras funciones
     for (int i = 0; i < N; ++i) {
@@ -51,7 +50,9 @@ bool resuelveCaso() {
         cin >> evento;
         if (evento == 'I') {
             string nombre; int priority;
-            cola.push({ nombre, priority, 0 });
+            cin >> nombre >> priority;
+            paciente aux = { nombre, priority, 0 };
+            cola.push(aux, priority);
         }
         else if (evento=='A') {
 
