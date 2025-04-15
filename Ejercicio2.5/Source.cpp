@@ -1,14 +1,14 @@
 
 /*@ <authors>
  *
- * Nombre, apellidos y usuario del juez (MARPXX) de los autores de la solución.
+ * Muxu Rubia Luque MARP35
  *
  *@ </authors> */
 
 #include <iostream>
 #include <fstream>
 #include <queue>
-#include "IndexPQ.h"  // propios o los de las estructuras de datos de clase
+#include "PriorityQueue.h"  // propios o los de las estructuras de datos de clase
 
 using namespace std;
 
@@ -31,17 +31,32 @@ bool resuelveCaso() {
 
     // leer los datos de la entrada
     int N, P;
-    cin >> N >> P;
+    cin >> P >> N;
     //P = num partituras
     //N = num de instrumentos distintos
     if (!std::cin)  // fin de la entrada
         return false;
+    PriorityQueue<int, greater<int>> colaPartituras;
 
     for (int i = 0; i < N; i++) {
-
+        int numMusicos; cin >> numMusicos;
+        colaPartituras.push(numMusicos);
     }
 
-    // escribir la solución
+    if (P > N) {
+        int dif = P - N; //Partituras extras
+        for (int i = 0; i < dif; ++i) {
+            int grupo = colaPartituras.top();
+            colaPartituras.pop(); //El grupo mayoritario se divide en dos
+            int grupo1 = grupo / 2;
+            int grupo2 = grupo - grupo1; //No tienen por que ser grupos pares
+            colaPartituras.push(grupo1);
+            colaPartituras.push(grupo2);
+        }
+    }
+
+    cout << colaPartituras.top(); cout << '\n';
+    
 
     return true;
 }
