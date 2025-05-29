@@ -27,6 +27,20 @@ using namespace std;
  // ================================================================
  //@ <answer>
 
+struct grupo {
+    int numMusicos;
+    int numPartituras;
+};
+
+bool operator<(grupo const& a, grupo const& b) {
+    return ((a.numMusicos / a.numPartituras) + (a.numMusicos % a.numPartituras) < 
+        (b.numMusicos / b.numPartituras) + (b.numMusicos % b.numPartituras)); //Se suma el resto porque se redondea hacia abajo en caso de ser division impar
+}
+
+bool operator>(grupo const& a, grupo const& b) {
+    return b < a;
+}
+
 bool resuelveCaso() {
 
     // leer los datos de la entrada
@@ -36,26 +50,26 @@ bool resuelveCaso() {
     //N = num de instrumentos distintos
     if (!std::cin)  // fin de la entrada
         return false;
-    PriorityQueue<int, greater<int>> colaPartituras;
+    PriorityQueue<grupo, greater<grupo>> colaPartituras;
 
     for (int i = 0; i < N; i++) {
         int numMusicos; cin >> numMusicos;
-        colaPartituras.push(numMusicos);
+        colaPartituras.push({numMusicos, 1}); //Como minimo cada grupo de musicos tiene 1 partitura
     }
 
     if (P > N) {
         int dif = P - N; //Partituras extras
         for (int i = 0; i < dif; ++i) {
-            int grupo = colaPartituras.top();
-            colaPartituras.pop(); //El grupo mayoritario se divide en dos
-            int grupo1 = grupo / 2;
-            int grupo2 = grupo - grupo1; //No tienen por que ser grupos pares
-            colaPartituras.push(grupo1);
-            colaPartituras.push(grupo2);
+            grupo grupo0 = colaPartituras.top();
+            colaPartituras.pop(); //El grupo mayoritario se divide
+            grupo0.numPartituras++;
+            
+            colaPartituras.push(grupo0);
         }
     }
 
-    cout << colaPartituras.top(); cout << '\n';
+    cout << (colaPartituras.top().numMusicos / colaPartituras.top().numPartituras) + 
+        colaPartituras.top().numMusicos % colaPartituras.top().numPartituras; cout << '\n';
     
 
     return true;
